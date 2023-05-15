@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.MainPageController">
+   <children>
+      <Label layoutX="93.0" layoutY="166.0" text="OLA CARALHO">
+         <font>
+            <Font size="74.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
