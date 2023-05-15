@@ -3,21 +3,30 @@ package com.example.wordle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
 import java.sql.*;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class LoginPageController {
     @FXML TextField tfUsername;
     @FXML TextField tfPassword;
+    @FXML Label lblErrorMessage;
     @FXML Button btnLogin;
+    @FXML Hyperlink hlRegister;
 
-    public void login(ActionEvent event) throws Exception{
+    public void loginUser(ActionEvent event) throws Exception{
         DBconnection db = new DBconnection();
         Connection connection = db.getConnection();
 
@@ -30,13 +39,14 @@ public class LoginPageController {
 
                 while (resultSet.next()){
                     if (resultSet.getInt(1) == 1){
-                        System.out.println("Logged in");
                         Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainPage.fxml")));
                         Scene mainPageScene = new Scene(mainPage);
                         Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         appstage.setScene(mainPageScene);
                     } else {
-                        System.out.println("Credenciais erradas!");
+                        lblErrorMessage.setVisible(true);
+                        lblErrorMessage.setText("Credenciais Incorretas!");
+
                         tfUsername.setText("");
                         tfPassword.setText("");
                         tfUsername.requestFocus();
@@ -47,7 +57,16 @@ public class LoginPageController {
             }
         } else {
             tfUsername.requestFocus();
-            System.out.println("Preencha todos os campos!");
+
+            lblErrorMessage.setVisible(true);
+            lblErrorMessage.setText("Preencha todos os campos!");
         }
+    }
+
+    public void goToRegister(ActionEvent event) throws IOException {
+        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("RegisterPage.fxml")));
+        Scene mainPageScene = new Scene(mainPage);
+        Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appstage.setScene(mainPageScene);
     }
 }
