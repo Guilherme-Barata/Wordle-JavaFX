@@ -78,7 +78,7 @@ public class RegisterPageController {
     }
 
     public void goToLogin(ActionEvent event) throws IOException {
-        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("RegisterPage.fxml")));
+        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
         Scene mainPageScene = new Scene(mainPage);
         Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appstage.setScene(mainPageScene);
