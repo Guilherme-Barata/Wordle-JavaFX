@@ -65,7 +65,7 @@ public class RegisterPageController {
                             e.printStackTrace();
                         }
 
-                        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainPage.fxml")));
+                        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
                         Scene mainPageScene = new Scene(mainPage);
                         Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         appstage.setScene(mainPageScene);
@@ -78,9 +78,9 @@ public class RegisterPageController {
     }
 
     public void goToLogin(ActionEvent event) throws IOException {
-        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
-        Scene mainPageScene = new Scene(mainPage);
+        Parent LoginPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
+        Scene LoginPageScene = new Scene(LoginPage);
         Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appstage.setScene(mainPageScene);
+        appstage.setScene(LoginPageScene);
     }
 }
