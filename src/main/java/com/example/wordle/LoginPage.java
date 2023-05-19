@@ -16,8 +16,8 @@ public class LoginPage extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.getIcons().add(new Image("file:Images/Icon.png"));
-        stage.setWidth(600);
-        stage.setHeight(400);
+        stage.setWidth(800);
+        stage.setHeight(600);
         stage.show();
     }
 
