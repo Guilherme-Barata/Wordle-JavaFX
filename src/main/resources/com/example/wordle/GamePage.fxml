@@ -8,21 +8,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.GamePageController">
    <children>
       <BorderPane layoutX="222.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <image>
-                  <Image url="@Logo.png" />
-               </image>
-               <BorderPane.margin>
-                  <Insets top="15.0" />
-               </BorderPane.margin>
-            </ImageView>
-         </top>
          <bottom>
             <VBox prefHeight="170.0" prefWidth="100.0" spacing="2.0" BorderPane.alignment="CENTER">
                <children>
@@ -88,6 +78,28 @@
                </BorderPane.margin>
             </VBox>
          </center>
+         <top>
+            <HBox alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="800.0" spacing="150.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Logo.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Button mnemonicParsing="false" onAction="#HandleExitClick" style="-fx-background-color: RED; -fx-text-fill: WHITE; -fx-background-radius: 150;" text="X">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="100.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>
