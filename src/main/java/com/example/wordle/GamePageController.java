@@ -21,11 +21,14 @@ import java.util.ResourceBundle;
 
 public class GamePageController implements Initializable {
 
-    private static int N;
+    private static int N; // game mode
     private int letterOrder; // control for the order of the letter
     private int lineOrder; // control for the order of the line
-    private String solution = "yeah";
+    private String solution = "yeah"; // for testing
     private boolean gameStatus; // to know if the game is over or not
+    private int gamePlayed; // add game played
+    private int gameWon; // add game won
+    private int attempts; // add attempts needed
     @FXML
     private VBox vbox;
     @FXML
@@ -82,6 +85,9 @@ public class GamePageController implements Initializable {
                         if (word.equalsIgnoreCase(solution)) {
                             // set game status to false
                             gameStatus = false;
+                            gamePlayed++;
+                            gameWon++;
+                            attempts = lineOrder;
 
                             // Create Alert to inform Game Result
                             Alert gameResult = new Alert(Alert.AlertType.NONE);
@@ -99,6 +105,7 @@ public class GamePageController implements Initializable {
                                 // Max attempts reached
                                 // Set game status to false
                                 gameStatus = false;
+                                gamePlayed++;
                                 // Create Alert to inform Game Result
                                 Alert gameResult = new Alert(Alert.AlertType.NONE);
                                 ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
@@ -141,6 +148,12 @@ public class GamePageController implements Initializable {
         letterOrder = 0;
         lineOrder = 0;
         gameStatus = true;
+        gamePlayed = 0;
+        gameWon = 0;
+        attempts = 0;
+
+        // Get player_id in order to get stats and set stats at the end of the game
+        Profile player = Profile.getInstance();
 
         // Get numberOfLetters in order to setup the game environment
         GameMode game = GameMode.getInstance();
