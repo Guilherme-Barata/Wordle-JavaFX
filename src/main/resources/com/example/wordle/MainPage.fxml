@@ -13,5 +13,6 @@
          </font>
       </Label>
       <Button fx:id="btnBack" layoutX="241.0" layoutY="282.0" mnemonicParsing="false" onAction="#goToPrivious" text="Back" />
+      <Button fx:id="btnGame" layoutX="370.0" layoutY="289.0" mnemonicParsing="false" onAction="#goToGame" text="Go to game" />
    </children>
 </AnchorPane>

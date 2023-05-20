@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 
 public class MainPageController implements Initializable {
     @FXML Button btnBack;
+    @FXML Button btnGame;
     @FXML Label lblId;
 
     @Override
@@ -51,6 +52,14 @@ public class MainPageController implements Initializable {
     @FXML
     public void goToPrivious(ActionEvent event) throws IOException {
         Parent LoginPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
+        Scene LoginPageScene = new Scene(LoginPage);
+        Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appstage.setScene(LoginPageScene);
+    }
+
+    @FXML
+    public void goToGame(ActionEvent event) throws IOException {
+        Parent LoginPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameModePage.fxml")));
         Scene LoginPageScene = new Scene(LoginPage);
         Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appstage.setScene(LoginPageScene);

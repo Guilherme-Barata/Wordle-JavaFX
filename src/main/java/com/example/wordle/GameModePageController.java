@@ -42,8 +42,11 @@ public class GameModePageController {
     }
 
     @FXML
-    public void HandleGobackClick() {
-        System.out.println("Go back pressed");
+    public void goback (ActionEvent event) throws IOException {
+        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainPage.fxml")));
+        Scene mainPageScene = new Scene(mainPage);
+        Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appstage.setScene(mainPageScene);
     }
 
     @FXML

@@ -33,7 +33,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#HandleGobackClick" text="Back">
+                              <Button mnemonicParsing="false" onAction="#goback" text="Back">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
