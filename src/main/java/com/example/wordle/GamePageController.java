@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -37,8 +38,15 @@ public class GamePageController implements Initializable {
     private Label letter;
 
     @FXML
-    private void HandleExitClick() {
-        System.exit(0);
+    private void HandleExitClick(ActionEvent event) throws IOException {
+
+        // Switch to GamePage
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameModePage.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appstage.setScene(scene);
+        appstage.show();
     }
 
     @FXML
