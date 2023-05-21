@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -21,6 +23,7 @@ import java.util.ResourceBundle;
 public class GamePageController implements Initializable {
 
     private static int N; // game mode
+    private KeyCode lastPressedKey;
     private int letterOrder; // control for the order of the letter
     private int lineOrder; // control for the order of the line
     private String solution = "yeah"; // for testing
@@ -102,7 +105,6 @@ public class GamePageController implements Initializable {
                             gameResult.setContentText("You Won :)\nAttempts: "+lineOrder);
                             gameResult.getDialogPane().getButtonTypes().add(type);
                             gameResult.show();
-                            //lineOrder = N + 1;
                         }
                         else {
                             word = "";
@@ -181,5 +183,107 @@ public class GamePageController implements Initializable {
             }
             vbox.getChildren().add(hbox); // Add hbox to vbox
         }
+    }
+
+    @FXML
+    private void handleKeyPressed(KeyEvent event) {
+        if (event.getCode().isLetterKey() || event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.BACK_SPACE){
+            lastPressedKey = event.getCode();
+            System.out.println("Last pressed key: " + lastPressedKey);
+
+            if (gameStatus) {
+                if (lastPressedKey.toString().equalsIgnoreCase("Enter")) {
+                    if (letterOrder == N){
+                        // verify word
+                        String word = "";
+                        String setColor = solution;
+                        for (int i = 0; i < N; i++) {
+                            line = (HBox) vbox.getChildren().get(lineOrder);
+                            letter = (Label) line.getChildren().get(i);
+                            System.out.println("setColor: "+setColor);
+                            System.out.println("Letter: "+letter.getText());
+                            System.out.println(setColor.toUpperCase().contains(letter.getText().toUpperCase()));
+                            // The letter exists
+                            if (setColor.toUpperCase().contains(letter.getText().toUpperCase())) {
+                                System.out.println("The letter exists");
+                                // The letter is in the right place
+                                if(letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i)))) {
+                                    letter.setStyle("-fx-background-color: GREEN");
+                                    String aux = setColor.replace(String.valueOf(letter.getText().toLowerCase()), "");
+                                    setColor = aux.toString();
+                                }
+                                else { // The letter isnt in the right place
+                                    letter.setStyle("-fx-background-color: YELLOW");
+                                    String aux = setColor.replace(String.valueOf(letter.getText().toLowerCase()), "");
+                                    setColor = aux.toString();
+                                }
+                            }
+                            else {
+                                letter.setStyle("-fx-background-color: GRAY");
+                                String aux = setColor.replace(String.valueOf(letter.getText().toLowerCase()), "");
+                                setColor = aux.toString();
+                            }
+                            word += letter.getText();
+                        }
+                        lineOrder++;
+                        if (word.equalsIgnoreCase(solution)) {
+                            // set game status to false
+                            gameStatus = false;
+                            gamePlayed++;
+                            gameWon++;
+                            attempts = lineOrder;
+
+                            // Create Alert to inform Game Result
+                            Alert gameResult = new Alert(Alert.AlertType.NONE);
+                            ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+                            gameResult.setTitle("Game Summary");
+                            gameResult.setContentText("You Won :)\nAttempts: "+lineOrder);
+                            gameResult.getDialogPane().getButtonTypes().add(type);
+                            gameResult.show();
+                            //lineOrder = N + 1;
+                        }
+                        else {
+                            word = "";
+                            letterOrder = 0;
+                            if (lineOrder == N) {
+                                // Max attempts reached
+                                // Set game status to false
+                                gameStatus = false;
+                                gamePlayed++;
+                                // Create Alert to inform Game Result
+                                Alert gameResult = new Alert(Alert.AlertType.NONE);
+                                ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+                                gameResult.setTitle("Game Summary");
+                                gameResult.setContentText("You Lost :(\nThe word was "+solution.toUpperCase()+"!");
+                                gameResult.getDialogPane().getButtonTypes().add(type);
+                                gameResult.show();
+                            }
+                        }
+                    }
+                } else {
+                    if (lastPressedKey.toString().equalsIgnoreCase("BACK_SPACE")) {
+                        // Erase letter
+                        if (letterOrder > 0) {
+                            letterOrder--;
+                            line = (HBox) vbox.getChildren().get(lineOrder);
+                            letter = (Label) line.getChildren().get(letterOrder);
+                            letter.setText("");
+                        }
+                    }
+                    else {
+                        // The Button/key pressed isnt neither the 'Enter' or the 'Delete'
+                        if (lineOrder < N) {
+                            line = (HBox) vbox.getChildren().get(lineOrder);
+                            if (letterOrder < N) {
+                                letter = (Label) line.getChildren().get(letterOrder);
+                                letter.setText(lastPressedKey.toString());
+                                letterOrder++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
