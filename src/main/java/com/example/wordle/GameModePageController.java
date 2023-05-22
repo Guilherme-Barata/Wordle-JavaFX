@@ -3,6 +3,7 @@ package com.example.wordle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,26 +11,30 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class GameModePageController {
+public class GameModePageController implements Initializable {
 
     private int numberOfLetters;
-
-    @FXML
-    private Button lang;
+    private String lang;
 
     @FXML
     public void HandleButtonCLick(ActionEvent event) throws IOException {
         if(event.getSource() instanceof Button){
             String btnValue = ((Button) event.getSource()).getText();
-            System.out.println(btnValue);
             numberOfLetters = Character.getNumericValue(btnValue.charAt(0));
-            System.out.println(numberOfLetters);
 
             // set numberOfLetters to be used in the Game
             GameMode game = GameMode.getInstance();
             game.setNumberOfLetters(numberOfLetters);
+
+            // set lang to be used in the game (NOTE: remove later,
+            // this needs to be setup in other place
+            Language language = Language.getInstance();
+            language.setLang(lang);
+
 
             // Switch to GamePage
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GamePage.fxml"));
@@ -49,8 +54,10 @@ public class GameModePageController {
         appstage.setScene(mainPageScene);
     }
 
-    @FXML
-    public void HandleLanguageClick() {
-        System.out.println("language pressed");
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Language language = Language.getInstance();
+        //lang = language.getLang();
+        lang = "en";
     }
 }
