@@ -13,20 +13,25 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePageController implements Initializable {
 
     private static int N; // game mode
-    private KeyCode lastPressedKey;
+
+    private static String lang; // language
     private int letterOrder; // control for the order of the letter
     private int lineOrder; // control for the order of the line
-    private String solution = "yeah"; // for testing
+    private String solution;
     private boolean gameStatus; // to know if the game is over or not
     private int gamePlayed; // add game played
     private int gameWon; // add game won
@@ -58,6 +63,7 @@ public class GamePageController implements Initializable {
 
             if (gameStatus) {
                 if (btnValue.equalsIgnoreCase("Enter")) {
+                    // Does the given answer have all the letters?
                     if (letterOrder == N){
                         // verify word
                         String word = "";
@@ -68,24 +74,23 @@ public class GamePageController implements Initializable {
                             System.out.println("setColor: "+setColor);
                             System.out.println("Letter: "+letter.getText());
                             System.out.println(setColor.toUpperCase().contains(letter.getText().toUpperCase()));
+
                             // The letter exists
                             if (setColor.toUpperCase().contains(letter.getText().toUpperCase())) {
+                                String aux = setColor.replaceFirst(letter.getText().toLowerCase(), "");
+                                setColor = aux.toString();
                                 System.out.println("The letter exists");
                                 // The letter is in the right place
                                 if(letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i)))) {
                                     letter.setStyle("-fx-background-color: GREEN");
-                                    String aux = setColor.replace(String.valueOf(letter.getText().toLowerCase()), "");
-                                    setColor = aux.toString();
                                 }
                                 else { // The letter isnt in the right place
                                     letter.setStyle("-fx-background-color: YELLOW");
-                                    String aux = setColor.replace(String.valueOf(letter.getText().toLowerCase()), "");
-                                    setColor = aux.toString();
                                 }
                             }
                             else {
                                 letter.setStyle("-fx-background-color: GRAY");
-                                String aux = setColor.replace(String.valueOf(letter.getText().toLowerCase()), "");
+                                String aux = setColor.replaceFirst(letter.getText().toLowerCase(), "");
                                 setColor = aux.toString();
                             }
                             word += letter.getText();
@@ -105,6 +110,7 @@ public class GamePageController implements Initializable {
                             gameResult.setContentText("You Won :)\nAttempts: "+lineOrder);
                             gameResult.getDialogPane().getButtonTypes().add(type);
                             gameResult.show();
+                            //lineOrder = N + 1;
                         }
                         else {
                             word = "";
@@ -118,7 +124,7 @@ public class GamePageController implements Initializable {
                                 Alert gameResult = new Alert(Alert.AlertType.NONE);
                                 ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
                                 gameResult.setTitle("Game Summary");
-                                gameResult.setContentText("You Lost :(");
+                                gameResult.setContentText("You Lost :(\nThe word was "+solution.toUpperCase()+"!");
                                 gameResult.getDialogPane().getButtonTypes().add(type);
                                 gameResult.show();
                             }
@@ -150,45 +156,11 @@ public class GamePageController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        letterOrder = 0;
-        lineOrder = 0;
-        gameStatus = true;
-        gamePlayed = 0;
-        gameWon = 0;
-        attempts = 0;
-
-        // Get player_id in order to get stats and set stats at the end of the game
-        Profile player = Profile.getInstance();
-
-        // Get numberOfLetters in order to setup the game environment
-        GameMode game = GameMode.getInstance();
-        N = game.getNumberOfLetters();
-
-        // Setup game environment
-        for(int i = 0; i < N; i++){
-            HBox hbox = new HBox();
-            hbox.setAlignment(Pos.CENTER);
-            hbox.setSpacing(5);
-            for(int j = 0; j < N; j++) {
-                Label label = new Label("");
-                label.setFont(Font.font(34));
-                label.setAlignment(Pos.CENTER);
-                label.setPrefWidth(40);
-                label.setPrefHeight(40);
-                label.setStyle("-fx-border-color: BLACK");
-                hbox.getChildren().add(label); // Add label to hbox
-            }
-            vbox.getChildren().add(hbox); // Add hbox to vbox
-        }
-    }
 
     @FXML
     private void handleKeyPressed(KeyEvent event) {
         if (event.getCode().isLetterKey() || event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.BACK_SPACE){
-            lastPressedKey = event.getCode();
+            KeyCode lastPressedKey = event.getCode();
             System.out.println("Last pressed key: " + lastPressedKey);
 
             if (gameStatus) {
@@ -203,24 +175,23 @@ public class GamePageController implements Initializable {
                             System.out.println("setColor: "+setColor);
                             System.out.println("Letter: "+letter.getText());
                             System.out.println(setColor.toUpperCase().contains(letter.getText().toUpperCase()));
+
                             // The letter exists
                             if (setColor.toUpperCase().contains(letter.getText().toUpperCase())) {
+                                String aux = setColor.replaceFirst(letter.getText().toLowerCase(), "");
+                                setColor = aux.toString();
                                 System.out.println("The letter exists");
                                 // The letter is in the right place
                                 if(letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i)))) {
                                     letter.setStyle("-fx-background-color: GREEN");
-                                    String aux = setColor.replace(String.valueOf(letter.getText().toLowerCase()), "");
-                                    setColor = aux.toString();
                                 }
                                 else { // The letter isnt in the right place
                                     letter.setStyle("-fx-background-color: YELLOW");
-                                    String aux = setColor.replace(String.valueOf(letter.getText().toLowerCase()), "");
-                                    setColor = aux.toString();
                                 }
                             }
                             else {
                                 letter.setStyle("-fx-background-color: GRAY");
-                                String aux = setColor.replace(String.valueOf(letter.getText().toLowerCase()), "");
+                                String aux = setColor.replaceFirst(letter.getText().toLowerCase(), "");
                                 setColor = aux.toString();
                             }
                             word += letter.getText();
@@ -240,7 +211,6 @@ public class GamePageController implements Initializable {
                             gameResult.setContentText("You Won :)\nAttempts: "+lineOrder);
                             gameResult.getDialogPane().getButtonTypes().add(type);
                             gameResult.show();
-                            //lineOrder = N + 1;
                         }
                         else {
                             word = "";
@@ -283,6 +253,86 @@ public class GamePageController implements Initializable {
                     }
                 }
             }
+        }
+
+    }
+
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        letterOrder = 0;
+        lineOrder = 0;
+        gameStatus = true;
+        gamePlayed = 0;
+        gameWon = 0;
+        attempts = 0;
+
+        // Get player_id in order to get stats and set stats at the end of the game
+        Profile player = Profile.getInstance();
+
+        // Get numberOfLetters in order to setup the game environment
+        GameMode game = GameMode.getInstance();
+        N = game.getNumberOfLetters();
+
+        // Setup game environment
+        for(int i = 0; i < N; i++){
+            HBox hbox = new HBox();
+            hbox.setAlignment(Pos.CENTER);
+            hbox.setSpacing(5);
+            for(int j = 0; j < N; j++) {
+                Label label = new Label("");
+                label.setFont(Font.font(34));
+                label.setAlignment(Pos.CENTER);
+                label.setPrefWidth(40);
+                label.setPrefHeight(40);
+                label.setStyle("-fx-border-color: BLACK");
+                hbox.getChildren().add(label); // Add label to hbox
+            }
+            vbox.getChildren().add(hbox); // Add hbox to vbox
+        }
+
+        // Get language in order to set up word
+        Language language = Language.getInstance();
+        lang = language.getLang();
+
+// Get word to discover
+        String fileName = N + ".txt";
+        String filePath = "src/main/resources/" + lang + "/" + fileName;
+
+        try {
+            File file = new File(filePath);
+            int counter = 0;
+
+            // First loop to count the total number of lines in the file
+            try (Scanner reader = new Scanner(file)) {
+                while (reader.hasNextLine()) {
+                    reader.nextLine();
+                    counter++;
+                }
+            }
+
+            // Generate a random line number within the total line count
+            int randomLineNumber = (int) (Math.random() * counter) + 1;
+
+            // Second loop to read the file and find the line at the random line number
+            counter = 0;
+            try (Scanner reader = new Scanner(file)) {
+                while (reader.hasNextLine()) {
+                    counter++;
+                    if (counter == randomLineNumber) {
+                        solution = reader.nextLine();
+                        System.out.println(solution);
+                        break;
+                    }
+                    reader.nextLine();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
         }
 
     }

@@ -49,15 +49,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="lang" mnemonicParsing="false" onAction="#HandleLanguageClick" text="Lang">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </HBox>
                </children>
