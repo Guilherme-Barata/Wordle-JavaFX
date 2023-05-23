@@ -19,49 +19,70 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainPageController implements Initializable {
-    @FXML Button btnBack;
-    @FXML Button btnGame;
-    @FXML Label lblId;
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        String id = LoginPageController.IDvalue;
+    public void start(Stage primaryStage) throws IOException {
+        primaryStage.setTitle("Menu Principal");
 
-        try {
-            DBconnection db = new DBconnection();
-            Connection connection = db.getConnection();
+        // Carregar o arquivo FXML do menu principal
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root, 400, 300);
 
-            String getName = "SELECT name FROM users WHERE id = " + id;
+        // Obter o controlador da página principal
+        MainPageController controller = loader.getController();
 
+        // Botão "Jogar"
+        Button jogarButton = (Button) root.lookup("#jogarButton");
+        jogarButton.setOnAction(e -> {
             try {
-                Statement Namestatement = connection.createStatement();
-                ResultSet NameresultSet = Namestatement.executeQuery(getName);
+                // Abrir a página de login
+                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
+                Parent loginRoot = loginLoader.load();
+                Scene loginScene = new Scene(loginRoot, 400, 300);
+                primaryStage.setScene(loginScene);
 
-                if (NameresultSet.next()) {
-                    String name = NameresultSet.getString(1);
-                    lblId.setText(name);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+                // Obter o controlador da página de login
+                LoginPageController loginController = loginLoader.getController();
+                // Configurar qualquer informação necessária no controlador da página de login
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+        });
 
-    @FXML
-    public void goToPrivious(ActionEvent event) throws IOException {
-        Parent LoginPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
-        Scene LoginPageScene = new Scene(LoginPage);
-        Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appstage.setScene(LoginPageScene);
-    }
+        // Botão "Leaderboard"
+        Button leaderboardButton = (Button) root.lookup("#leaderboardButton");
+        leaderboardButton.setOnAction(e -> {
+            // Lógica para abrir a página de leaderboard
+            System.out.println("Abrir leaderboard...");
+        });
 
-    @FXML
-    public void goToGame(ActionEvent event) throws IOException {
-        Parent LoginPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameModePage.fxml")));
-        Scene LoginPageScene = new Scene(LoginPage);
-        Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appstage.setScene(LoginPageScene);
+        // Botão "Definições"
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Defenições.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root, 400, 300);
+        
+        
+        
+        // Botão "Top 10"
+        Button top10Button = (Button) root.lookup("#top10Button");
+        top10Button.setOnAction(e -> {
+            // Lógica para abrir a página de top 10
+            System.out.println("Abrir top 10...");
+        });
+
+        // Botão "Sair"
+        Button sairButton = (Button) root.lookup("#sairButton");
+        sairButton.setOnAction(e -> {
+            // Fechar o programa
+            primaryStage.close();
+        });
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
