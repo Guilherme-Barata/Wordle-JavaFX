@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.MainPageController">
    <children>
-      <Label fx:id="lblId" layoutX="117.0" layoutY="146.0" text="FUNCIONA">
-         <font>
-            <Font size="74.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnBack" layoutX="241.0" layoutY="282.0" mnemonicParsing="false" onAction="#goToPrivious" text="Back" />
-      <Button fx:id="btnGame" layoutX="370.0" layoutY="289.0" mnemonicParsing="false" onAction="#goToGame" text="Go to game" />
+      <BorderPane prefHeight="400.0" prefWidth="600.0">
+         <top>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
+      <Button fx:id="btnBack" layoutX="235.0" layoutY="154.0" mnemonicParsing="false" onAction="#goToPrivious" prefHeight="26.0" prefWidth="130.0" text="JOGAR" textFill="#1430cd" />
+      <Button fx:id="btnGame" layoutX="235.0" layoutY="224.0" mnemonicParsing="false" onAction="#goToGame" prefHeight="26.0" prefWidth="130.0" text="TOP 10" textFill="#1430cd" />
+      <Button fx:id="btnBack1" layoutX="235.0" layoutY="300.0" mnemonicParsing="false" onAction="#goToPrivious" prefHeight="26.0" prefWidth="130.0" text="SAIR" textFill="#1430cd" />
+      <Button fx:id="btnBack11" layoutX="235.0" layoutY="187.0" mnemonicParsing="false" onAction="#goToPrivious" prefHeight="26.0" prefWidth="130.0" text="LEARBORD" textFill="#1430cd" />
+      <Button fx:id="btnBack111" layoutX="235.0" layoutY="264.0" mnemonicParsing="false" onAction="#goToPrivious" prefHeight="26.0" prefWidth="130.0" text="DEFENIÇÕES" textFill="#1430cd" />
    </children>
 </AnchorPane>
