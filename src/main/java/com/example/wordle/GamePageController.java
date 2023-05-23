@@ -59,7 +59,6 @@ public class GamePageController implements Initializable {
     public void HandleButtonCLick(ActionEvent event) {
         if(event.getSource() instanceof Button){
             String btnValue = ((Button) event.getSource()).getText();
-            System.out.println(btnValue);
 
             if (gameStatus) {
                 if (btnValue.equalsIgnoreCase("Enter")) {
@@ -71,15 +70,12 @@ public class GamePageController implements Initializable {
                         for (int i = 0; i < N; i++) {
                             line = (HBox) vbox.getChildren().get(lineOrder);
                             letter = (Label) line.getChildren().get(i);
-                            System.out.println("setColor: "+setColor);
-                            System.out.println("Letter: "+letter.getText());
-                            System.out.println(setColor.toUpperCase().contains(letter.getText().toUpperCase()));
 
                             // The letter exists
                             if (setColor.toUpperCase().contains(letter.getText().toUpperCase())) {
                                 String aux = setColor.replaceFirst(letter.getText().toLowerCase(), "");
                                 setColor = aux.toString();
-                                System.out.println("The letter exists");
+
                                 // The letter is in the right place
                                 if(letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i)))) {
                                     letter.setStyle("-fx-background-color: GREEN");
@@ -131,11 +127,11 @@ public class GamePageController implements Initializable {
                         }
                     }
                 } else {
+                    line = (HBox) vbox.getChildren().get(lineOrder);
                     if (btnValue.equalsIgnoreCase("Delete")) {
                         // Erase letter
                         if (letterOrder > 0) {
                             letterOrder--;
-                            line = (HBox) vbox.getChildren().get(lineOrder);
                             letter = (Label) line.getChildren().get(letterOrder);
                             letter.setText("");
                         }
@@ -143,7 +139,6 @@ public class GamePageController implements Initializable {
                     else {
                         // The Button/key pressed isnt neither the 'Enter' or the 'Delete'
                         if (lineOrder < N) {
-                            line = (HBox) vbox.getChildren().get(lineOrder);
                             if (letterOrder < N) {
                                 letter = (Label) line.getChildren().get(letterOrder);
                                 letter.setText(btnValue);
@@ -161,26 +156,25 @@ public class GamePageController implements Initializable {
     private void handleKeyPressed(KeyEvent event) {
         if (event.getCode().isLetterKey() || event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.BACK_SPACE){
             KeyCode lastPressedKey = event.getCode();
-            System.out.println("Last pressed key: " + lastPressedKey);
 
             if (gameStatus) {
                 if (lastPressedKey.toString().equalsIgnoreCase("Enter")) {
                     if (letterOrder == N){
-                        // verify word
+
                         String word = "";
                         String setColor = solution;
+
                         for (int i = 0; i < N; i++) {
+
+                            // obtain right label
                             line = (HBox) vbox.getChildren().get(lineOrder);
                             letter = (Label) line.getChildren().get(i);
-                            System.out.println("setColor: "+setColor);
-                            System.out.println("Letter: "+letter.getText());
-                            System.out.println(setColor.toUpperCase().contains(letter.getText().toUpperCase()));
 
                             // The letter exists
                             if (setColor.toUpperCase().contains(letter.getText().toUpperCase())) {
                                 String aux = setColor.replaceFirst(letter.getText().toLowerCase(), "");
                                 setColor = aux.toString();
-                                System.out.println("The letter exists");
+
                                 // The letter is in the right place
                                 if(letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i)))) {
                                     letter.setStyle("-fx-background-color: GREEN");
@@ -231,19 +225,19 @@ public class GamePageController implements Initializable {
                         }
                     }
                 } else {
+                    line = (HBox) vbox.getChildren().get(lineOrder);
                     if (lastPressedKey.toString().equalsIgnoreCase("BACK_SPACE")) {
                         // Erase letter
                         if (letterOrder > 0) {
                             letterOrder--;
-                            line = (HBox) vbox.getChildren().get(lineOrder);
+
                             letter = (Label) line.getChildren().get(letterOrder);
                             letter.setText("");
                         }
                     }
                     else {
-                        // The Button/key pressed isnt neither the 'Enter' or the 'Delete'
+                        // The key pressed isnt neither the 'Enter' or the 'Delete'
                         if (lineOrder < N) {
-                            line = (HBox) vbox.getChildren().get(lineOrder);
                             if (letterOrder < N) {
                                 letter = (Label) line.getChildren().get(letterOrder);
                                 letter.setText(lastPressedKey.toString());
@@ -270,14 +264,14 @@ public class GamePageController implements Initializable {
         gameWon = 0;
         attempts = 0;
 
-        // Get player_id in order to get stats and set stats at the end of the game
+        // get player_id in order to get stats and set stats at the end of the game
         Profile player = Profile.getInstance();
 
-        // Get numberOfLetters in order to setup the game environment
+        // get numberOfLetters in order to setup the game environment
         GameMode game = GameMode.getInstance();
         N = game.getNumberOfLetters();
 
-        // Setup game environment
+        // setup game environment
         for(int i = 0; i < N; i++){
             HBox hbox = new HBox();
             hbox.setAlignment(Pos.CENTER);
@@ -298,7 +292,7 @@ public class GamePageController implements Initializable {
         Language language = Language.getInstance();
         lang = language.getLang();
 
-// Get word to discover
+        // Get word to discover
         String fileName = N + ".txt";
         String filePath = "src/main/resources/" + lang + "/" + fileName;
 
@@ -306,7 +300,7 @@ public class GamePageController implements Initializable {
             File file = new File(filePath);
             int counter = 0;
 
-            // First loop to count the total number of lines in the file
+            // count number of lines
             try (Scanner reader = new Scanner(file)) {
                 while (reader.hasNextLine()) {
                     reader.nextLine();
@@ -314,15 +308,15 @@ public class GamePageController implements Initializable {
                 }
             }
 
-            // Generate a random line number within the total line count
-            int randomLineNumber = (int) (Math.random() * counter) + 1;
+            // get random line from the available
+            int randomLine = (int) (Math.random() * counter) + 1;
 
-            // Second loop to read the file and find the line at the random line number
+            // read file again but save the word from the line randomized
             counter = 0;
             try (Scanner reader = new Scanner(file)) {
                 while (reader.hasNextLine()) {
                     counter++;
-                    if (counter == randomLineNumber) {
+                    if (counter == randomLine) {
                         solution = reader.nextLine();
                         System.out.println(solution);
                         break;
@@ -332,6 +326,7 @@ public class GamePageController implements Initializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            // game wont work, exit application
             System.exit(1);
         }
 

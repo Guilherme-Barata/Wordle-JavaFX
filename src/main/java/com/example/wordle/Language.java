@@ -2,7 +2,7 @@ package com.example.wordle;
 
 public class Language {
 
-    private String lang;
+    private String lang; // en, fr, pt
     private final static Language INSTANCE = new Language();
 
     public Language(){}
