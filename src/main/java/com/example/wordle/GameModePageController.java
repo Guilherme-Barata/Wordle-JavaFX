@@ -48,7 +48,7 @@ public class GameModePageController implements Initializable {
 
     @FXML
     public void goback (ActionEvent event) throws IOException {
-        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainPage.fxml")));
+        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
         Scene mainPageScene = new Scene(mainPage);
         Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appstage.setScene(mainPageScene);
