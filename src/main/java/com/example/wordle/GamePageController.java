@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -22,7 +21,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePageController implements Initializable {
 
@@ -55,6 +53,78 @@ public class GamePageController implements Initializable {
         appstage.show();
     }
 
+
+    @FXML
+    public void gameAlgorithm(){
+        // Does the given answer have all the letters?
+        if (letterOrder == N){
+            // verify word
+            String word = "";
+            //String setColor = solution;
+            char[] setColor = solution.toCharArray();
+
+            line = (HBox) vbox.getChildren().get(lineOrder);
+            for(int i = 0; i < N; i++){
+                letter = (Label) line.getChildren().get(i);
+                // verifies if its in the right position
+                System.out.println(letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i))));
+                if (letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i)))){
+                    //setColor = setColor.replaceFirst(letter.getText(), "1");
+                    setColor[i] = '1';
+                    letter.setStyle("-fx-background-color: GREEN");
+                }
+                word += letter.getText();
+            }
+            // the answer given is right
+            if (word.equalsIgnoreCase(solution)){
+                lineOrder++;
+                // set game status to false
+                gameStatus = false;
+                gamePlayed++;
+                gameWon++;
+                attempts = lineOrder;
+
+                // Create Alert to inform Game Result
+                Alert gameResult = new Alert(Alert.AlertType.NONE);
+                ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+                gameResult.setTitle("Game Summary");
+                gameResult.setContentText("You Won :)\nAttempts: "+lineOrder);
+                gameResult.getDialogPane().getButtonTypes().add(type);
+                gameResult.show();
+            }
+            else {
+                lineOrder++;
+                for (int i = 0; i < N; i++){
+                    letter = (Label) line.getChildren().get(i);
+                    System.out.println(String.valueOf(setColor).toUpperCase());
+                    System.out.println(letter.getText());
+                    System.out.println(String.valueOf(setColor).toUpperCase().contains(letter.getText().toUpperCase()));
+                    if (String.valueOf(setColor).toUpperCase().contains(letter.getText().toUpperCase())){
+                        letter.setStyle("-fx-background-color: YELLOW");
+                    }
+                    else {
+                        if (!(String.valueOf(setColor).charAt(i) == '1')) {
+                            letter.setStyle("-fx-background-color: GRAY");
+                        }
+                    }
+                }
+                letterOrder = 0;
+                if (lineOrder == N) {
+                    // Max attempts reached
+                    // Set game status to false
+                    gameStatus = false;
+                    gamePlayed++;
+                    // Create Alert to inform Game Result
+                    Alert gameResult = new Alert(Alert.AlertType.NONE);
+                    ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+                    gameResult.setTitle("Game Summary");
+                    gameResult.setContentText("You Lost :(\nThe word was "+solution.toUpperCase()+"!");
+                    gameResult.getDialogPane().getButtonTypes().add(type);
+                    gameResult.show();
+                }
+            }
+        }
+    }
     @FXML
     public void HandleButtonCLick(ActionEvent event) {
         if(event.getSource() instanceof Button){
@@ -62,70 +132,7 @@ public class GamePageController implements Initializable {
 
             if (gameStatus) {
                 if (btnValue.equalsIgnoreCase("Enter")) {
-                    // Does the given answer have all the letters?
-                    if (letterOrder == N){
-                        // verify word
-                        String word = "";
-                        String setColor = solution;
-                        for (int i = 0; i < N; i++) {
-                            line = (HBox) vbox.getChildren().get(lineOrder);
-                            letter = (Label) line.getChildren().get(i);
-
-                            // The letter exists
-                            if (setColor.toUpperCase().contains(letter.getText().toUpperCase())) {
-                                String aux = setColor.replaceFirst(letter.getText().toLowerCase(), "");
-                                setColor = aux.toString();
-
-                                // The letter is in the right place
-                                if(letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i)))) {
-                                    letter.setStyle("-fx-background-color: GREEN");
-                                }
-                                else { // The letter isnt in the right place
-                                    letter.setStyle("-fx-background-color: YELLOW");
-                                }
-                            }
-                            else {
-                                letter.setStyle("-fx-background-color: GRAY");
-                                String aux = setColor.replaceFirst(letter.getText().toLowerCase(), "");
-                                setColor = aux.toString();
-                            }
-                            word += letter.getText();
-                        }
-                        lineOrder++;
-                        if (word.equalsIgnoreCase(solution)) {
-                            // set game status to false
-                            gameStatus = false;
-                            gamePlayed++;
-                            gameWon++;
-                            attempts = lineOrder;
-
-                            // Create Alert to inform Game Result
-                            Alert gameResult = new Alert(Alert.AlertType.NONE);
-                            ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-                            gameResult.setTitle("Game Summary");
-                            gameResult.setContentText("You Won :)\nAttempts: "+lineOrder);
-                            gameResult.getDialogPane().getButtonTypes().add(type);
-                            gameResult.show();
-                            //lineOrder = N + 1;
-                        }
-                        else {
-                            word = "";
-                            letterOrder = 0;
-                            if (lineOrder == N) {
-                                // Max attempts reached
-                                // Set game status to false
-                                gameStatus = false;
-                                gamePlayed++;
-                                // Create Alert to inform Game Result
-                                Alert gameResult = new Alert(Alert.AlertType.NONE);
-                                ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-                                gameResult.setTitle("Game Summary");
-                                gameResult.setContentText("You Lost :(\nThe word was "+solution.toUpperCase()+"!");
-                                gameResult.getDialogPane().getButtonTypes().add(type);
-                                gameResult.show();
-                            }
-                        }
-                    }
+                    gameAlgorithm();
                 } else {
                     line = (HBox) vbox.getChildren().get(lineOrder);
                     if (btnValue.equalsIgnoreCase("Delete")) {
@@ -159,71 +166,7 @@ public class GamePageController implements Initializable {
 
             if (gameStatus) {
                 if (lastPressedKey.toString().equalsIgnoreCase("Enter")) {
-                    if (letterOrder == N){
-
-                        String word = "";
-                        String setColor = solution;
-
-                        for (int i = 0; i < N; i++) {
-
-                            // obtain right label
-                            line = (HBox) vbox.getChildren().get(lineOrder);
-                            letter = (Label) line.getChildren().get(i);
-
-                            // The letter exists
-                            if (setColor.toUpperCase().contains(letter.getText().toUpperCase())) {
-                                String aux = setColor.replaceFirst(letter.getText().toLowerCase(), "");
-                                setColor = aux.toString();
-
-                                // The letter is in the right place
-                                if(letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i)))) {
-                                    letter.setStyle("-fx-background-color: GREEN");
-                                }
-                                else { // The letter isnt in the right place
-                                    letter.setStyle("-fx-background-color: YELLOW");
-                                }
-                            }
-                            else {
-                                letter.setStyle("-fx-background-color: GRAY");
-                                String aux = setColor.replaceFirst(letter.getText().toLowerCase(), "");
-                                setColor = aux.toString();
-                            }
-                            word += letter.getText();
-                        }
-                        lineOrder++;
-                        if (word.equalsIgnoreCase(solution)) {
-                            // set game status to false
-                            gameStatus = false;
-                            gamePlayed++;
-                            gameWon++;
-                            attempts = lineOrder;
-
-                            // Create Alert to inform Game Result
-                            Alert gameResult = new Alert(Alert.AlertType.NONE);
-                            ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-                            gameResult.setTitle("Game Summary");
-                            gameResult.setContentText("You Won :)\nAttempts: "+lineOrder);
-                            gameResult.getDialogPane().getButtonTypes().add(type);
-                            gameResult.show();
-                        }
-                        else {
-                            word = "";
-                            letterOrder = 0;
-                            if (lineOrder == N) {
-                                // Max attempts reached
-                                // Set game status to false
-                                gameStatus = false;
-                                gamePlayed++;
-                                // Create Alert to inform Game Result
-                                Alert gameResult = new Alert(Alert.AlertType.NONE);
-                                ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-                                gameResult.setTitle("Game Summary");
-                                gameResult.setContentText("You Lost :(\nThe word was "+solution.toUpperCase()+"!");
-                                gameResult.getDialogPane().getButtonTypes().add(type);
-                                gameResult.show();
-                            }
-                        }
-                    }
+                    gameAlgorithm();
                 } else {
                     line = (HBox) vbox.getChildren().get(lineOrder);
                     if (lastPressedKey.toString().equalsIgnoreCase("BACK_SPACE")) {
