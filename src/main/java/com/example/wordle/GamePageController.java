@@ -27,6 +27,7 @@ public class GamePageController implements Initializable {
     private static int N; // game mode
 
     private static String lang; // language
+    private String player_id;
     private int letterOrder; // control for the order of the letter
     private int lineOrder; // control for the order of the line
     private String solution;
@@ -84,6 +85,8 @@ public class GamePageController implements Initializable {
                 gameWon++;
                 attempts = lineOrder;
 
+                // update line in database for the games played and games won
+
                 // Create Alert to inform Game Result
                 Alert gameResult = new Alert(Alert.AlertType.NONE);
                 ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
@@ -114,6 +117,9 @@ public class GamePageController implements Initializable {
                     // Set game status to false
                     gameStatus = false;
                     gamePlayed++;
+
+                    // update line in database for games played
+
                     // Create Alert to inform Game Result
                     Alert gameResult = new Alert(Alert.AlertType.NONE);
                     ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
@@ -203,12 +209,14 @@ public class GamePageController implements Initializable {
         letterOrder = 0;
         lineOrder = 0;
         gameStatus = true;
-        gamePlayed = 0;
-        gameWon = 0;
         attempts = 0;
 
         // get player_id in order to get stats and set stats at the end of the game
-        Profile player = Profile.getInstance();
+        player_id = LoginPageController.IDvalue;
+
+        // get the player_id games played and games won
+        gamePlayed = 0;
+        gameWon = 0;
 
         // get numberOfLetters in order to setup the game environment
         GameMode game = GameMode.getInstance();
