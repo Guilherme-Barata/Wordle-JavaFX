@@ -2,11 +2,18 @@ package com.example.wordle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable {
@@ -20,10 +27,12 @@ public class SettingsController implements Initializable {
     @FXML
     private Button frflag;
     @FXML
+    private Button back;
+    @FXML
     private Label languageSelected;
 
     @FXML
-    public void HandleButtonClick(ActionEvent event) {
+    public void HandleButtonClick(ActionEvent event) throws IOException {
         if(event.getSource() instanceof Button) {
             String btnValue = ((Button) event.getSource()).getId();
 
@@ -42,6 +51,12 @@ public class SettingsController implements Initializable {
                     languageSelected.setText("Language selected: Français");
                     language.setLang("fr");
                     System.out.println(language.getLang());
+                    break;
+                case "back":
+                    Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
+                    Scene mainPageScene = new Scene(mainPage);
+                    Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    appstage.setScene(mainPageScene);
                     break;
             }
         }
