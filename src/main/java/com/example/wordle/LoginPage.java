@@ -10,6 +10,11 @@ import java.io.IOException;
 public class LoginPage extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+
+        Language language = Language.getInstance();
+        // by default
+        language.setLang("en");
+
         FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Wordle");

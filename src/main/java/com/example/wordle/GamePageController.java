@@ -69,7 +69,6 @@ public class GamePageController implements Initializable {
             for(int i = 0; i < N; i++){
                 letter = (Label) line.getChildren().get(i);
                 // verifies if its in the right position
-                System.out.println(letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i))));
                 if (letter.getText().equalsIgnoreCase(String.valueOf(solution.charAt(i)))){
                     //setColor = setColor.replaceFirst(letter.getText(), "1");
                     setColor[i] = '1';
@@ -132,9 +131,6 @@ public class GamePageController implements Initializable {
                 lineOrder++;
                 for (int i = 0; i < N; i++){
                     letter = (Label) line.getChildren().get(i);
-                    System.out.println(String.valueOf(setColor).toUpperCase());
-                    System.out.println(letter.getText());
-                    System.out.println(String.valueOf(setColor).toUpperCase().contains(letter.getText().toUpperCase()));
                     if (String.valueOf(setColor).toUpperCase().contains(letter.getText().toUpperCase())){
                         letter.setStyle("-fx-background-color: YELLOW");
                     }
