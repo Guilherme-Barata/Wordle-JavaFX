@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -44,7 +47,6 @@ public class GamePageController implements Initializable {
 
     @FXML
     private void HandleExitClick(ActionEvent event) throws IOException {
-
         // Switch to GamePage
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameModePage.fxml"));
         Parent root = loader.load();
@@ -54,9 +56,8 @@ public class GamePageController implements Initializable {
         appstage.show();
     }
 
-
     @FXML
-    public void gameAlgorithm(){
+    public void gameAlgorithm() throws Exception{
         // Does the given answer have all the letters?
         if (letterOrder == N){
             // verify word
@@ -86,6 +87,38 @@ public class GamePageController implements Initializable {
                 attempts = lineOrder;
 
                 // update line in database for the games played and games won
+                try {
+                    DBconnection db = new DBconnection();
+                    Connection connection = db.getConnection();
+
+                    String getGames = "SELECT gamesplayed, gameswon FROM users WHERE id = " + player_id;
+
+                    try {
+                        Statement Gamestatement = connection.createStatement();
+                        ResultSet GamesresultSet = Gamestatement.executeQuery(getGames);
+
+                        if (GamesresultSet.next()) {
+                            int playerGamesPlayed = GamesresultSet.getInt(1);
+                            int playerGamesWon = GamesresultSet.getInt(2);
+
+                            int newGamesPlayed = playerGamesPlayed + gamePlayed;
+                            int newGamesWon = playerGamesWon + gameWon;
+
+                            String updateQuery = "UPDATE users SET gamesplayed = "+ newGamesPlayed +", gameswon = "+ newGamesWon +" WHERE id = "+ player_id +";";
+
+                            try {
+                                Statement statementUpdate = connection.createStatement();
+                                statementUpdate.executeUpdate(updateQuery);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 // Create Alert to inform Game Result
                 Alert gameResult = new Alert(Alert.AlertType.NONE);
@@ -119,6 +152,36 @@ public class GamePageController implements Initializable {
                     gamePlayed++;
 
                     // update line in database for games played
+                    try {
+                        DBconnection db = new DBconnection();
+                        Connection connection = db.getConnection();
+
+                        String getGames = "SELECT gamesplayed FROM users WHERE id = " + player_id;
+
+                        try {
+                            Statement Gamestatement = connection.createStatement();
+                            ResultSet GamesresultSet = Gamestatement.executeQuery(getGames);
+
+                            if (GamesresultSet.next()) {
+                                int playerGamesPlayed = GamesresultSet.getInt(1);
+
+                                int newGamesPlayed = playerGamesPlayed + gamePlayed;
+
+                                String updateQuery = "UPDATE users SET gamesplayed = "+ newGamesPlayed +" WHERE id = "+ player_id +";";
+
+                                try {
+                                    Statement statementUpdate = connection.createStatement();
+                                    statementUpdate.executeUpdate(updateQuery);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     // Create Alert to inform Game Result
                     Alert gameResult = new Alert(Alert.AlertType.NONE);
@@ -132,7 +195,7 @@ public class GamePageController implements Initializable {
         }
     }
     @FXML
-    public void HandleButtonCLick(ActionEvent event) {
+    public void HandleButtonCLick(ActionEvent event) throws Exception{
         if(event.getSource() instanceof Button){
             String btnValue = ((Button) event.getSource()).getText();
 
@@ -164,9 +227,8 @@ public class GamePageController implements Initializable {
         }
     }
 
-
     @FXML
-    private void handleKeyPressed(KeyEvent event) {
+    private void handleKeyPressed(KeyEvent event) throws Exception{
         if (event.getCode().isLetterKey() || event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.BACK_SPACE){
             KeyCode lastPressedKey = event.getCode();
 
@@ -200,12 +262,8 @@ public class GamePageController implements Initializable {
 
     }
 
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         letterOrder = 0;
         lineOrder = 0;
         gameStatus = true;

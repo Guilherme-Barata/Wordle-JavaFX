@@ -56,7 +56,7 @@ public class RegisterPageController {
                         tfUsername.setText("");
                         tfUsername.requestFocus();
                     } else {
-                        String registerQuery = "INSERT INTO users (name, password, games_played, games_won) VALUES ('" + tfUsername.getText() + "', '" + tfPassword.getText() + "', 0, 0)";
+                        String registerQuery = "INSERT INTO users (name, password, gamesplayed, gameswon) VALUES ('" + tfUsername.getText() + "', '" + tfPassword.getText() + "', 0, 0)";
 
                         try {
                             Statement statementR = connection.createStatement();

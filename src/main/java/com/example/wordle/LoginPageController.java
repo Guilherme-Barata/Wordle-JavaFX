@@ -50,7 +50,7 @@ public class LoginPageController {
                             e.printStackTrace();
                         }
 
-                        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainPage.fxml")));
+                        Parent mainPage = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
                         Scene mainPageScene = new Scene(mainPage);
                         Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         appstage.setScene(mainPageScene);
