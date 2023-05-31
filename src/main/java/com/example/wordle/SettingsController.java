@@ -40,17 +40,14 @@ public class SettingsController implements Initializable {
                 case "ukusaflag":
                     languageSelected.setText("Language selected: English");
                     language.setLang("en");
-                    System.out.println(language.getLang());
                     break;
                 case "ptflag":
                     languageSelected.setText("Language selected: Português");
                     language.setLang("pt");
-                    System.out.println(language.getLang());
                     break;
                 case "frflag":
                     languageSelected.setText("Language selected: Français");
                     language.setLang("fr");
-                    System.out.println(language.getLang());
                     break;
                 case "back":
                     Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));

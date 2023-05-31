@@ -3,7 +3,6 @@ package com.example.wordle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,14 +10,11 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
-public class GameModePageController implements Initializable {
+public class GameModePageController{
 
     private int numberOfLetters;
-    private String lang;
 
     @FXML
     public void HandleButtonCLick(ActionEvent event) throws IOException {
@@ -29,12 +25,6 @@ public class GameModePageController implements Initializable {
             // set numberOfLetters to be used in the Game
             GameMode game = GameMode.getInstance();
             game.setNumberOfLetters(numberOfLetters);
-
-            // set lang to be used in the game (NOTE: remove later,
-            // this needs to be setup in other place
-            Language language = Language.getInstance();
-            language.setLang(lang);
-
 
             // Switch to GamePage
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GamePage.fxml"));
@@ -54,10 +44,4 @@ public class GameModePageController implements Initializable {
         appstage.setScene(mainPageScene);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        Language language = Language.getInstance();
-        //lang = language.getLang();
-        lang = "en";
-    }
 }
