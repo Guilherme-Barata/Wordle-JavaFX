@@ -22,6 +22,12 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class LeaderboardController implements Initializable {
+    private String player_id;
+
+    @FXML TableView<LeaderBoard> tvPlayerStats;
+    @FXML TableColumn<LeaderBoard, String> colNamePlayerStats;
+    @FXML TableColumn<LeaderBoard, Integer> colGamesPlayedStats;
+    @FXML TableColumn<LeaderBoard, Integer> colGamesWonStats;
     @FXML TableView<LeaderBoard> tvLeaderBoard;
     @FXML TableColumn<LeaderBoard, Integer> colRank;
     @FXML TableColumn<LeaderBoard, String> colNamePlayer;
@@ -34,7 +40,13 @@ public class LeaderboardController implements Initializable {
         tvLeaderBoard.minHeightProperty().bind(tvLeaderBoard.prefHeightProperty());
         tvLeaderBoard.maxHeightProperty().bind(tvLeaderBoard.prefHeightProperty());
 
+        tvPlayerStats.setFixedCellSize(25); // Altura fixa das células
+        tvPlayerStats.prefHeightProperty().bind(tvPlayerStats.fixedCellSizeProperty().multiply(2.5)); // Altura total da TableView
+        tvPlayerStats.minHeightProperty().bind(tvPlayerStats.prefHeightProperty());
+        tvPlayerStats.maxHeightProperty().bind(tvPlayerStats.prefHeightProperty());
+
         try {
+            showPlayer();
             showPlayerList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,16 +64,19 @@ public class LeaderboardController implements Initializable {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             LeaderBoard lb;
+
             int rank = 0;
+
             while (rs.next() && rank !=10) {
                 rank++;
-                    lb = new LeaderBoard(rank, rs.getString("name"), rs.getInt("gamesplayed"), rs.getInt("gameswon"));
-                    playerList.add(lb);
+                lb = new LeaderBoard(rank, rs.getString("name"), rs.getInt("gamesplayed"), rs.getInt("gameswon"));
+                playerList.add(lb);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return playerList;
     }
 
@@ -73,7 +88,66 @@ public class LeaderboardController implements Initializable {
         colGamesPlayed.setCellValueFactory(new PropertyValueFactory<LeaderBoard, Integer>("gamesplayed"));
         colGamesWon.setCellValueFactory(new PropertyValueFactory<LeaderBoard, Integer>("gameswon"));
 
-        tvLeaderBoard.setItems(list);
+//        DBconnection db = new DBconnection();
+//        Connection connection = db.getConnection();
+//        player_id = LoginPageController.IDvalue;
+//
+//        String query = "SELECT name FROM users WHERE id = " + player_id;
+//
+//        try {
+//            Statement st = connection.createStatement();
+//            ResultSet rs = st.executeQuery(query);
+//
+//            if (rs.next()){
+//                String NameLogged = rs.getString("name");
+//
+//                if (NameLogged.equals("batata")){
+//                    System.out.println(NameLogged);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        tvLeaderBoard.setItems(list);
+    }
+
+    public ObservableList<LeaderBoard> getPlayer() throws Exception{
+        ObservableList<LeaderBoard> player = FXCollections.observableArrayList();
+        DBconnection db = new DBconnection();
+        Connection connection = db.getConnection();
+
+        player_id = LoginPageController.IDvalue;
+
+        String query = "SELECT name, gamesplayed, gameswon FROM users WHERE id = " + player_id;
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            LeaderBoard lb;
+
+            int rank = 0;
+
+            if (rs.next()) {
+                lb = new LeaderBoard(rank, rs.getString("name"), rs.getInt("gamesplayed"), rs.getInt("gameswon"));
+                player.add(lb);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return player;
+    }
+
+    public void showPlayer() throws Exception{
+        ObservableList<LeaderBoard> player = getPlayer();
+
+        colNamePlayerStats.setCellValueFactory(new PropertyValueFactory<LeaderBoard, String>("nameplayer"));
+        colGamesPlayedStats.setCellValueFactory(new PropertyValueFactory<LeaderBoard, Integer>("gamesplayed"));
+        colGamesWonStats.setCellValueFactory(new PropertyValueFactory<LeaderBoard, Integer>("gameswon"));
+
+        tvPlayerStats.setItems(player);
     }
 
     public void handleBackbutton(ActionEvent event) throws IOException {
