@@ -29,6 +29,11 @@ public class LeaderboardController implements Initializable {
     @FXML TableColumn<LeaderBoard, Integer> colGamesWon;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+        tvLeaderBoard.setFixedCellSize(25); // Altura fixa das células
+        tvLeaderBoard.prefHeightProperty().bind(tvLeaderBoard.fixedCellSizeProperty().multiply(11)); // Altura total da TableView
+        tvLeaderBoard.minHeightProperty().bind(tvLeaderBoard.prefHeightProperty());
+        tvLeaderBoard.maxHeightProperty().bind(tvLeaderBoard.prefHeightProperty());
+
         try {
             showPlayerList();
         } catch (Exception e) {
@@ -41,17 +46,17 @@ public class LeaderboardController implements Initializable {
         DBconnection db = new DBconnection();
         Connection connection = db.getConnection();
 
-        String query = "SELECT * FROM users";
+        String query = "SELECT * FROM users ORDER BY gameswon DESC";
 
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             LeaderBoard lb;
             int rank = 0;
-            while (rs.next()) {
+            while (rs.next() && rank !=10) {
                 rank++;
-                lb = new LeaderBoard(rank, rs.getString("name"), rs.getInt("gamesplayed"), rs.getInt("gameswon"));
-                playerList.add(lb);
+                    lb = new LeaderBoard(rank, rs.getString("name"), rs.getInt("gamesplayed"), rs.getInt("gameswon"));
+                    playerList.add(lb);
             }
 
         } catch (Exception e) {
