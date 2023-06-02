@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane onKeyReleased="#handleKeyPressed" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.GamePageController">
+<AnchorPane onKeyReleased="#handleKeyPressed" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.GamePageController">
    <children>
       <BorderPane layoutX="222.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -26,7 +26,7 @@
                         <Button mnemonicParsing="false" onAction="#HandleButtonCLick" prefHeight="50.0" prefWidth="50.0" text="P" />
                      </children>
                      <VBox.margin>
-                        <Insets left="140.0" right="140.0" />
+                        <Insets left="50.0" right="50.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="2.0">
@@ -42,10 +42,10 @@
                         <Button mnemonicParsing="false" onAction="#HandleButtonCLick" prefHeight="50.0" prefWidth="50.0" text="L" />
                      </children>
                      <VBox.margin>
-                        <Insets left="150.0" right="160.0" />
+                        <Insets left="50.0" right="50.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="2.0">
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="651.0" spacing="2.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#HandleButtonCLick" prefHeight="50.0" prefWidth="50.0" text="Enter" />
                         <Button mnemonicParsing="false" onAction="#HandleButtonCLick" prefHeight="50.0" prefWidth="50.0" text="Z" />
@@ -58,12 +58,12 @@
                         <Button mnemonicParsing="false" onAction="#HandleButtonCLick" prefHeight="50.0" text="Delete" />
                      </children>
                      <VBox.margin>
-                        <Insets left="143.0" right="130.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                </children>
                <BorderPane.margin>
-                  <Insets bottom="5.0" />
+                  <Insets />
                </BorderPane.margin>
             </VBox>
          </bottom>
@@ -75,25 +75,30 @@
             </VBox>
          </center>
          <top>
-            <HBox alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="800.0" spacing="150.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="600.0" spacing="150.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Logo.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Button mnemonicParsing="false" onAction="#HandleExitClick" style="-fx-background-color: RED; -fx-text-fill: WHITE; -fx-background-radius: 150;" text="X">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="100.0" />
-                     </HBox.margin>
-                  </Button>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Logo.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="65.0" prefWidth="19.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#HandleExitClick" prefHeight="50.0" prefWidth="0.0" style="-fx-background-color: RED; -fx-text-fill: WHITE; -fx-background-radius: 150;" text="X">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
+               <BorderPane.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
             </HBox>
          </top>
       </BorderPane>
