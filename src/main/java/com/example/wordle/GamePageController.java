@@ -29,7 +29,6 @@ public class GamePageController implements Initializable {
 
     private static int N; // game mode
 
-    private static String lang; // language
     private String player_id;
     private int letterOrder; // control for the order of the letter
     private int lineOrder; // control for the order of the line
@@ -37,7 +36,6 @@ public class GamePageController implements Initializable {
     private boolean gameStatus; // to know if the game is over or not
     private int gamePlayed; // add game played
     private int gameWon; // add game won
-    private int attempts; // add attempts needed
     @FXML
     private VBox vbox;
     @FXML
@@ -57,11 +55,11 @@ public class GamePageController implements Initializable {
     }
 
     @FXML
-    public void gameAlgorithm() throws Exception{
+    public void gameAlgorithm() {
         // Does the given answer have all the letters?
         if (letterOrder == N){
             // verify word
-            String word = "";
+            StringBuilder word = new StringBuilder();
             //String setColor = solution;
             char[] setColor = solution.toCharArray();
 
@@ -74,16 +72,15 @@ public class GamePageController implements Initializable {
                     setColor[i] = '1';
                     letter.setStyle("-fx-background-color: GREEN");
                 }
-                word += letter.getText();
+                word.append(letter.getText());
             }
             // the answer given is right
-            if (word.equalsIgnoreCase(solution)){
+            if (word.toString().equalsIgnoreCase(solution)){
                 lineOrder++;
                 // set game status to false
                 gameStatus = false;
                 gamePlayed++;
                 gameWon++;
-                attempts = lineOrder;
 
                 // update line in database for the games played and games won
                 try {
@@ -131,11 +128,12 @@ public class GamePageController implements Initializable {
                 lineOrder++;
                 for (int i = 0; i < N; i++){
                     letter = (Label) line.getChildren().get(i);
-                    if (String.valueOf(setColor).toUpperCase().contains(letter.getText().toUpperCase())){
+                    boolean isAlreadyColored = !(String.valueOf(setColor).charAt(i) == '1'); // if false, we want to color
+                    if (String.valueOf(setColor).toUpperCase().contains(letter.getText().toUpperCase()) && isAlreadyColored){
                         letter.setStyle("-fx-background-color: YELLOW");
                     }
                     else {
-                        if (!(String.valueOf(setColor).charAt(i) == '1')) {
+                        if (isAlreadyColored) {
                             letter.setStyle("-fx-background-color: GRAY");
                         }
                     }
@@ -191,7 +189,7 @@ public class GamePageController implements Initializable {
         }
     }
     @FXML
-    public void HandleButtonCLick(ActionEvent event) throws Exception{
+    public void HandleButtonCLick(ActionEvent event) {
         if(event.getSource() instanceof Button){
             String btnValue = ((Button) event.getSource()).getText();
 
@@ -224,7 +222,7 @@ public class GamePageController implements Initializable {
     }
 
     @FXML
-    private void handleKeyPressed(KeyEvent event) throws Exception{
+    private void handleKeyPressed(KeyEvent event) {
         if (event.getCode().isLetterKey() || event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.BACK_SPACE){
             KeyCode lastPressedKey = event.getCode();
 
@@ -263,7 +261,6 @@ public class GamePageController implements Initializable {
         letterOrder = 0;
         lineOrder = 0;
         gameStatus = true;
-        attempts = 0;
 
         // get player_id in order to get stats and set stats at the end of the game
         player_id = LoginPageController.IDvalue;
@@ -295,7 +292,8 @@ public class GamePageController implements Initializable {
 
         // Get language in order to set up word
         Language language = Language.getInstance();
-        lang = language.getLang();
+        // language
+        String lang = language.getLang();
 
         // Get word to discover
         String fileName = N + ".txt";
