@@ -39,6 +39,8 @@ public class GamePageController implements Initializable {
     @FXML
     private VBox vbox;
     @FXML
+    private VBox buttonsVbox;
+    @FXML
     private HBox line;
     @FXML
     private Label letter;
@@ -52,6 +54,30 @@ public class GamePageController implements Initializable {
         Stage appstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appstage.setScene(scene);
         appstage.show();
+    }
+
+    @FXML
+    public void colorButtons(String letter, String style){
+        for (int i = 0; i < 3; i++){
+            // define the numbers of iterations
+            int numberOfButtons;
+            if (i == 0){
+                numberOfButtons = 10;
+            }
+            else {
+                numberOfButtons = 9;
+            }
+            HBox buttonsHbox = (HBox) buttonsVbox.getChildren().get(i);
+            for (int j = 0; j < numberOfButtons; j++){
+                Button button = (Button) buttonsHbox.getChildren().get(j);
+                if (button.getText().equalsIgnoreCase(letter) && button.getStyle().isEmpty()){
+                    button.setStyle(style);
+                }
+                else if (button.getText().equalsIgnoreCase(letter) && button.getStyle().equalsIgnoreCase("-fx-background-color: YELLOW")) {
+                    button.setStyle(style);
+                }
+            }
+        }
     }
 
     @FXML
@@ -71,6 +97,7 @@ public class GamePageController implements Initializable {
                     //setColor = setColor.replaceFirst(letter.getText(), "1");
                     setColor[i] = '1';
                     letter.setStyle("-fx-background-color: GREEN");
+                    colorButtons(letter.getText(),"-fx-background-color: GREEN");
                 }
                 word.append(letter.getText());
             }
@@ -131,10 +158,12 @@ public class GamePageController implements Initializable {
                     boolean isAlreadyColored = !(String.valueOf(setColor).charAt(i) == '1'); // if false, we want to color
                     if (String.valueOf(setColor).toUpperCase().contains(letter.getText().toUpperCase()) && isAlreadyColored){
                         letter.setStyle("-fx-background-color: YELLOW");
+                        colorButtons(letter.getText(),"-fx-background-color: YELLOW");
                     }
                     else {
                         if (isAlreadyColored) {
                             letter.setStyle("-fx-background-color: GRAY");
+                            colorButtons(letter.getText(),"-fx-background-color: GRAY");
                         }
                     }
                 }
