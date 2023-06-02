@@ -6,38 +6,48 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.SettingsController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #eaf1f7;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.SettingsController">
    <children>
       <BorderPane layoutX="162.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <VBox alignment="TOP_CENTER" prefHeight="125.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="125.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Logo.png" />
-                     </image>
-                  </ImageView>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                        <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Button fx:id="back" mnemonicParsing="false" onAction="#HandleButtonClick" text="Back">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="Arial Rounded MT Bold" size="18.0" />
                                  </font>
                               </Button>
                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label text="Settings">
-                                 <font>
-                                    <Font name="System Bold" size="32.0" />
-                                 </font>
-                              </Label>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Logo.png" />
+                                 </image>
+                              </ImageView>
                            </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="200.0" />
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </HBox>
+                     </children></HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="38.0" prefWidth="1203.0" text="Settings">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="32.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
                </children>
@@ -47,11 +57,11 @@
             </VBox>
          </top>
          <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="languageSelected" text="Language selected: ">
                      <font>
-                        <Font name="System Bold" size="30.0" />
+                        <Font name="Arial Rounded MT Bold" size="30.0" />
                      </font>
                   </Label>
                   <Button fx:id="ukusaflag" layoutX="342.0" layoutY="402.0" mnemonicParsing="false" onAction="#HandleButtonClick" style="-fx-background-color: transparent;">
@@ -83,7 +93,7 @@
                   </Button>
                </children>
                <padding>
-                  <Insets bottom="20.0" top="20.0" />
+                  <Insets bottom="20.0" />
                </padding>
             </VBox>
          </center>

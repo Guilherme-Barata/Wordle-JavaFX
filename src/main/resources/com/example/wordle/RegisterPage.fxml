@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.RegisterPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #eaf1f7;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.RegisterPageController">
    <children>
       <BorderPane layoutX="200.0" layoutY="115.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -17,7 +17,7 @@
                      <children>
                         <Label alignment="CENTER" prefHeight="53.0" prefWidth="997.0" text="Welcome to">
                            <font>
-                              <Font name="System Bold" size="48.0" />
+                              <Font name="Arial Rounded MT Bold" size="48.0" />
                            </font>
                         </Label>
                      </children>
@@ -35,7 +35,7 @@
                      <children>
                         <Label alignment="CENTER" prefHeight="0.0" prefWidth="604.0" text="Create a new account to start playing!">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="Arial Rounded MT Bold" size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -49,7 +49,7 @@
                         </FontAwesomeIconView>
                         <TextField fx:id="tfUsername" promptText="Username">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </TextField>
                      </children>
@@ -66,7 +66,7 @@
                         </FontAwesomeIconView>
                         <PasswordField fx:id="tfPassword" alignment="TOP_LEFT" promptText="Password">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </PasswordField>
                      </children>
@@ -83,7 +83,7 @@
                         </FontAwesomeIconView>
                         <PasswordField fx:id="tfConfirmPassword" alignment="TOP_LEFT" promptText="Confirm Password">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </PasswordField>
                      </children>
@@ -104,7 +104,7 @@
                      <children>
                         <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#RegisterUser" text="Sign Up">
                            <font>
-                              <Font name="System Bold" size="24.0" />
+                              <Font name="Arial Rounded MT Bold" size="24.0" />
                            </font>
                         </Button>
                      </children>
@@ -113,7 +113,7 @@
                      <children>
                         <Hyperlink fx:id="hlLogin" alignment="CENTER" contentDisplay="TOP" onAction="#goToLogin" prefHeight="23.0" prefWidth="349.0" text="Already have an account? Sign In Here">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="Arial Rounded MT Bold" size="14.0" />
                            </font></Hyperlink>
                      </children>
                   </HBox>

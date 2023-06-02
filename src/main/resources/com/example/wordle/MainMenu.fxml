@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.MainMenuController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #eaf1f7;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.MainMenuController">
    <children>
       <BorderPane layoutX="155.0" layoutY="73.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -19,7 +19,7 @@
                   </ImageView>
                   <Label fx:id="welcome_text" alignment="CENTER" prefHeight="20.0" prefWidth="316.0" text="Welcome Back!">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="25.0" />
@@ -27,22 +27,22 @@
                   </Label>
                   <Button mnemonicParsing="false" onAction="#HandleButtonClick" prefHeight="51.0" prefWidth="220.0" text="New Game">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#HandleButtonClick" prefHeight="51.0" prefWidth="220.0" text="Leaderboard">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#HandleButtonClick" prefWidth="220.0" text="Settings">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#HandleButtonClick" prefWidth="220.0" text="Exit">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                </children>

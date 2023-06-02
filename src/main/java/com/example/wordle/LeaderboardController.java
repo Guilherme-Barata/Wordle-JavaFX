@@ -42,7 +42,7 @@ public class LeaderboardController implements Initializable {
         tvLeaderBoard.maxHeightProperty().bind(tvLeaderBoard.prefHeightProperty());
 
         tvPlayerStats.setFixedCellSize(25); // Altura fixa das células
-        tvPlayerStats.prefHeightProperty().bind(tvPlayerStats.fixedCellSizeProperty().multiply(2.5)); // Altura total da TableView
+        tvPlayerStats.prefHeightProperty().bind(tvPlayerStats.fixedCellSizeProperty().multiply(2)); // Altura total da TableView
         tvPlayerStats.minHeightProperty().bind(tvPlayerStats.prefHeightProperty());
         tvPlayerStats.maxHeightProperty().bind(tvPlayerStats.prefHeightProperty());
 

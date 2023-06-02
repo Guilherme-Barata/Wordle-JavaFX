@@ -6,48 +6,62 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.GameModePageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #eaf1f7;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wordle.GameModePageController">
    <children>
       <BorderPane layoutX="192.0" layoutY="89.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <VBox alignment="CENTER" prefHeight="150.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets bottom="20.0" />
+                  <Insets />
                </BorderPane.margin>
                <children>
-                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="600.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                           <image>
-                              <Image url="@Logo.png" />
-                           </image>
-                        </ImageView>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#goback" text="Back">
+                                 <font>
+                                    <Font name="Arial Rounded MT Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <HBox prefHeight="30.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@Logo.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </HBox>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                        <VBox alignment="CENTER" prefHeight="39.0" prefWidth="640.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#goback" text="Back">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="725.0" text="New Game">
                                  <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0">
-                           <children>
-                              <Label text="New Game">
-                                 <font>
-                                    <Font size="34.0" />
+                                    <Font name="Arial Rounded MT Bold" size="34.0" />
                                  </font>
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </HBox>
                </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
             </VBox>
          </top>
          <center>
@@ -55,32 +69,32 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#HandleButtonCLick" text="3 Letters">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#HandleButtonCLick" text="4 Letters">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#HandleButtonCLick" text="5 Letters">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#HandleButtonCLick" text="6 Letters">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#HandleButtonCLick" text="7 Letters">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                </children>
                <padding>
-                  <Insets top="30.0" />
+                  <Insets top="10.0" />
                </padding>
             </VBox>
          </center>
