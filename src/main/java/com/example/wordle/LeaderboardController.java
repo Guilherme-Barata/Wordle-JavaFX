@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -88,28 +89,38 @@ public class LeaderboardController implements Initializable {
         colGamesPlayed.setCellValueFactory(new PropertyValueFactory<LeaderBoard, Integer>("gamesplayed"));
         colGamesWon.setCellValueFactory(new PropertyValueFactory<LeaderBoard, Integer>("gameswon"));
 
-//        DBconnection db = new DBconnection();
-//        Connection connection = db.getConnection();
-//        player_id = LoginPageController.IDvalue;
-//
-//        String query = "SELECT name FROM users WHERE id = " + player_id;
-//
-//        try {
-//            Statement st = connection.createStatement();
-//            ResultSet rs = st.executeQuery(query);
-//
-//            if (rs.next()){
-//                String NameLogged = rs.getString("name");
-//
-//                if (NameLogged.equals("batata")){
-//                    System.out.println(NameLogged);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        tvLeaderBoard.setItems(list);
+        DBconnection db = new DBconnection();
+        Connection connection = db.getConnection();
+        player_id = LoginPageController.IDvalue;
+
+        String query = "SELECT name FROM users WHERE id = " + player_id;
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            if (rs.next()){
+                String NameLogged = rs.getString("name");
+
+                tvLeaderBoard.setRowFactory(tv -> new TableRow<LeaderBoard>() {
+                    @Override
+                    public void updateItem(LeaderBoard item, boolean empty) {
+                        super.updateItem(item, empty) ;
+                        if (item == null) {
+                            setStyle("");
+                        } else if (item.getNameplayer().equals(NameLogged)) {
+                            setStyle("-fx-background-color: #fffee0;");
+                        } else {
+                            setStyle("");
+                        }
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        tvLeaderBoard.setItems(list);
     }
 
     public ObservableList<LeaderBoard> getPlayer() throws Exception{
