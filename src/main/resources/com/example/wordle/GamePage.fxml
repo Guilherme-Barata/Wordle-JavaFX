@@ -75,9 +75,9 @@
             </VBox>
          </center>
          <top>
-            <VBox prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="11.0" prefWidth="600.0">
+                  <HBox alignment="CENTER" prefHeight="11.0" prefWidth="600.0">
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
