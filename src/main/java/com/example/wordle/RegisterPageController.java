@@ -33,14 +33,14 @@ public class RegisterPageController {
             tfUsername.requestFocus();
 
             lblErrorMessage.setVisible(true);
-            lblErrorMessage.setText("Preencha todos os campos!");
+            lblErrorMessage.setText("Fill all Fields!");
         } else if (!Objects.equals(tfPassword.getText(), tfConfirmPassword.getText())){
             tfPassword.requestFocus();
             tfPassword.setText("");
             tfConfirmPassword.setText("");
 
             lblErrorMessage.setVisible(true);
-            lblErrorMessage.setText("As passwords não coincidem!");
+            lblErrorMessage.setText("Passwords Don't Match!");
         } else {
             String userQuery = "SELECT COUNT(1) FROM users WHERE name = '" + tfUsername.getText() + "'";
 
@@ -51,7 +51,7 @@ public class RegisterPageController {
                 while (resultSet.next()){
                     if (resultSet.getInt(1) == 1){
                         lblErrorMessage.setVisible(true);
-                        lblErrorMessage.setText("Esse nome de utilizador já existe!");
+                        lblErrorMessage.setText("Username Already Exists!");
 
                         tfUsername.setText("");
                         tfUsername.requestFocus();

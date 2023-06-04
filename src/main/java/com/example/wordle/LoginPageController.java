@@ -56,7 +56,7 @@ public class LoginPageController {
                         appstage.setScene(mainPageScene);
                     } else {
                         lblErrorMessage.setVisible(true);
-                        lblErrorMessage.setText("Credenciais Incorretas!");
+                        lblErrorMessage.setText("Wrong Credentials!");
 
                         tfUsername.setText("");
                         tfPassword.setText("");
@@ -70,7 +70,7 @@ public class LoginPageController {
             tfUsername.requestFocus();
 
             lblErrorMessage.setVisible(true);
-            lblErrorMessage.setText("Preencha todos os campos!");
+            lblErrorMessage.setText("Fill all Fields!");
         }
     }
 
