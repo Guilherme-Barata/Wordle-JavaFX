@@ -6,4 +6,4 @@
   </p>
 </div>
 
-Wordle-JavaFX is a game developed as the final project of the course Human Computer Interaction
+Wordle-JavaFX is a game developed as the final project of the Human Computer Interaction lecture.
